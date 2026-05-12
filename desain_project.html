@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Gallery</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #07070b;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            width: 550px;
+            height: 550px;
+            background: rgba(255, 50, 120, 0.18);
+            filter: blur(170px);
+            top: -160px;
+            left: -130px;
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 80, 80, 0.14);
+            filter: blur(160px);
+            bottom: -180px;
+            right: -120px;
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 60px;
+        }
+
+        /* TOPBAR */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 55px;
+        }
+
+        .title {
+            max-width: 700px;
+        }
+
+        .mini-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 10px 16px;
+
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(14px);
+
+            margin-bottom: 22px;
+
+            font-size: 14px;
+            color: #d4d4d4;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+            background: #ff3f7f;
+
+            box-shadow: 0 0 15px #ff3f7f;
+        }
+
+        .title h1 {
+            font-size: 68px;
+            line-height: 1;
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+
+        .title h1 span {
+            background: linear-gradient(90deg,
+                    #ff4d6d,
+                    #ff2d92,
+                    #ff7b54);
+
+            background-clip: text;
+            -webkit-background-clip: text;
+
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .title p {
+            color: #a1a1aa;
+            font-size: 17px;
+            line-height: 1.8;
+            max-width: 620px;
+        }
+
+        /* BUTTON */
+
+        .back-btn {
+            position: relative;
+            overflow: hidden;
+
+            text-decoration: none;
+            color: white;
+
+            padding: 18px 26px;
+
+            border-radius: 22px;
+
+            background: rgba(255, 255, 255, 0.06);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(14px);
+
+            transition: 0.35s;
+
+            font-weight: 500;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-4px);
+
+            background: rgba(255, 255, 255, 0.1);
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.35),
+                0 0 30px rgba(255, 70, 130, 0.22);
+        }
+
+        /* STATS */
+
+        .stats {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 34px;
+        }
+
+        .stat-box {
+            min-width: 170px;
+
+            padding: 22px;
+
+            border-radius: 24px;
+
+            background: rgba(255, 255, 255, 0.05);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(16px);
+
+            transition: 0.35s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.35),
+                0 0 24px rgba(255, 70, 130, 0.18);
+        }
+
+        .stat-box h2 {
+            font-size: 34px;
+            margin-bottom: 6px;
+        }
+
+        .stat-box p {
+            color: #a1a1aa;
+            font-size: 14px;
+        }
+
+        /* GALLERY */
+
+        .gallery {
+            columns: 3 320px;
+            column-gap: 24px;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+
+            border-radius: 30px;
+
+            margin-bottom: 24px;
+
+            break-inside: avoid;
+
+            cursor: pointer;
+
+            background: rgba(255, 255, 255, 0.04);
+
+            border: 1px solid rgba(255, 255, 255, 0.06);
+
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-7px);
+
+            box-shadow:
+                0 18px 40px rgba(0, 0, 0, 0.45),
+                0 0 30px rgba(255, 70, 130, 0.18);
+        }
+
+        .card img {
+            width: 100%;
+            display: block;
+            transition: 0.5s;
+        }
+
+        .card:hover img {
+            transform: scale(1.06);
+        }
+
+        /* OVERLAY */
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, 0.92),
+                    rgba(0, 0, 0, 0.18),
+                    transparent);
+
+            display: flex;
+            align-items: flex-end;
+
+            padding: 24px;
+
+            opacity: 0;
+
+            transition: 0.35s;
+        }
+
+        .card:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay-content {
+            width: 100%;
+        }
+
+        .tag {
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            margin-bottom: 14px;
+
+            font-size: 12px;
+            color: #f1f1f1;
+        }
+
+        .overlay h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .overlay p {
+            color: #d4d4d4;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* MODAL */
+
+        .project-modal {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.72);
+            backdrop-filter: blur(14px);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+
+            opacity: 0;
+            pointer-events: none;
+
+            transition: 0.35s;
+
+            z-index: 999;
+        }
+
+        .project-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-box {
+            width: 100%;
+            max-width: 1150px;
+
+            background: rgba(255, 255, 255, 0.05);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(20px);
+
+            border-radius: 34px;
+
+            overflow: hidden;
+
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+
+            position: relative;
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(255, 70, 130, 0.15);
+        }
+
+        .modal-left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .modal-right {
+            padding: 42px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .modal-tag {
+            display: inline-flex;
+            width: fit-content;
+
+            padding: 10px 16px;
+
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.08);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            margin-bottom: 22px;
+
+            font-size: 13px;
+        }
+
+        .modal-right h2 {
+            font-size: 52px;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+
+        .modal-desc {
+            color: #b4b4b4;
+            line-height: 1.8;
+            margin-bottom: 34px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .info-box {
+            padding: 20px;
+
+            border-radius: 22px;
+
+            background: rgba(255, 255, 255, 0.04);
+
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .info-box span {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        .info-box h4 {
+            margin-top: 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+
+            width: 46px;
+            height: 46px;
+
+            border-radius: 50%;
+
+            border: none;
+
+            background: rgba(255, 255, 255, 0.08);
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            z-index: 10;
+
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        /* MOBILE */
+
+        @media(max-width:900px) {
+
+            .container {
+                padding: 35px;
+            }
+
+            .title h1 {
+                font-size: 52px;
+            }
+
+            .modal-box {
+                grid-template-columns: 1fr;
+                max-height: 90vh;
+                overflow: auto;
+            }
+
+            .modal-right h2 {
+                font-size: 40px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            .container {
+                padding: 24px;
+            }
+
+            .title h1 {
+                font-size: 42px;
+            }
+
+            .gallery {
+                columns: 1;
+            }
+
+            .modal-right {
+                padding: 28px;
+            }
+
+            .modal-right h2 {
+                font-size: 34px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="topbar">
+
+            <div class="title">
+
+                <div class="mini-tag">
+                    <div class="dot"></div>
+                    Selected Works
+                </div>
+
+                <h1>
+                    Design <span>Projects</span>
+                </h1>
+
+                <p>
+                    Collection of immersive systems, cinematic visuals,
+                    aesthetic interfaces, and modern gameplay experiences.
+                </p>
+
+                <div class="stats">
+
+                    <div class="stat-box">
+                        <h2>20+</h2>
+                        <p>Projects Created</p>
+                    </div>
+
+                    <div class="stat-box">
+                        <h2>4+</h2>
+                        <p>Years Experience</p>
+                    </div>
+
+                    <div class="stat-box">
+                        <h2>UI + Code</h2>
+                        <p>Creative Workflow</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <a href="index.html" class="back-btn">
+                ← Back Home
+            </a>
+
+        </div>
+
+        <!-- GALLERY -->
+
+        <div class="gallery">
+
+            <div class="card">
+                <img src="img/sd.png" alt="">
+
+                <div class="overlay">
+                    <div class="overlay-content">
+
+                        <div class="tag">Socmed Design</div>
+
+                        <h3>Caplin Pakes</h3>
+
+                        <p>
+                            Designed aesthetic promotional visuals for in-game diamond trading using Canva, Figma, 
+                            and Illustrator, tailored for gaming audiences and modern market trends.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="img/sd1.png" alt="">
+
+                <div class="overlay">
+                    <div class="overlay-content">
+
+                        <div class="tag">Cyber UI</div>
+
+                        <h3>Cyber Interface</h3>
+
+                        <p>
+                            Futuristic interface concept focused on glassmorphism
+                            and cinematic visuals.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="img/sd2.png" alt="">
+
+                <div class="overlay">
+                    <div class="overlay-content">
+
+                        <div class="tag">Combat FX</div>
+
+                        <h3>Combat Effects</h3>
+
+                        <p>
+                            Stylized visual hit effects and immersive animation
+                            feedback system.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="img/sd3.png" alt="">
+
+                <div class="overlay">
+                    <div class="overlay-content">
+
+                        <div class="tag">Dashboard</div>
+
+                        <h3>UI Dashboard</h3>
+
+                        <p>
+                            Modern glassmorphism dashboard inspired by premium
+                            software interfaces.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT 5 -->
+<div class="card">
+    <img src="img/sd4.png" alt="">
+
+    <div class="overlay">
+        <div class="overlay-content">
+
+            <div class="tag">Game UI</div>
+
+            <h3>Inventory System</h3>
+
+            <p>
+                Modern inventory interface with responsive layout,
+                smooth interactions, and immersive user experience.
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<!-- PROJECT 6 -->
+<div class="card">
+    <img src="img/sd5.png" alt="">
+
+    <div class="overlay">
+        <div class="overlay-content">
+
+            <div class="tag">Lighting</div>
+
+            <h3>Cinematic Lighting</h3>
+
+            <p>
+                Created atmospheric lighting setups focused on
+                realism, mood, and cinematic storytelling.
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<!-- PROJECT 7 -->
+<div class="card">
+    <img src="img/sd6.png" alt="">
+
+    <div class="overlay">
+        <div class="overlay-content">
+
+            <div class="tag">Environment</div>
+
+            <h3>Environment Build</h3>
+
+            <p>
+                Detailed immersive environment project with
+                layered scenery and aesthetic composition.
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<!-- PROJECT 8 -->
+<div class="card">
+    <img src="img/sd7.png" alt="">
+
+    <div class="overlay">
+        <div class="overlay-content">
+
+            <div class="tag">Software UI</div>
+
+            <h3>Desktop Concept</h3>
+
+            <p>
+                Creative desktop application concept inspired by
+                modern productivity and glassmorphism design.
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<!-- PROJECT 9 -->
+<div class="card">
+    <img src="img/sd8.png" alt="">
+
+    <div class="overlay">
+        <div class="overlay-content">
+
+            <div class="tag">Visual FX</div>
+
+            <h3>Magic Effects</h3>
+
+            <p>
+                Stylized particle and visual effects system for
+                immersive fantasy combat experiences.
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<!-- PROJECT 10 -->
+<div class="card">
+    <img src="img/sd9.png" alt="">
+
+    <div class="overlay">
+        <div class="overlay-content">
+
+            <div class="tag">UI Design</div>
+
+            <h3>Settings Panel</h3>
+
+            <p>
+                Premium settings interface with clean layouts,
+                smooth navigation, and modern visual hierarchy.
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<!-- PROJECT 11 -->
+<div class="card">
+    <img src="img/sd10.png" alt="">
+
+    <div class="overlay">
+        <div class="overlay-content">
+
+            <div class="tag">Character System</div>
+
+            <h3>Avatar Showcase</h3>
+
+            <p>
+                Character presentation system focused on
+                stylish composition and immersive visuals.
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<!-- PROJECT 12 -->
+<div class="card">
+    <img src="img/sd11.png" alt="">
+
+    <div class="overlay">
+        <div class="overlay-content">
+
+            <div class="tag">Builder Project</div>
+
+            <h3>City Environment</h3>
+
+            <p>
+                Large-scale city environment build featuring
+                realistic layouts and cinematic atmosphere.
+            </p>
+
+        </div>
+    </div>
+</div>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+
+    <div class="project-modal" id="projectModal">
+
+        <div class="modal-box">
+
+            <button class="close-modal" id="closeModal">
+                ✕
+            </button>
+
+            <div class="modal-left">
+                <img src="" id="modalImage">
+            </div>
+
+            <div class="modal-right">
+
+                <div class="modal-tag" id="modalTag">
+                    Socmed Design
+                </div>
+
+                <h2 id="modalTitle">
+                    Caplin Pakes
+                </h2>
+
+                <p class="modal-desc" id="modalDesc">
+                    Description here
+                </p>
+
+                <div class="info-grid">
+
+                    <div class="info-box">
+                        <span>Year</span>
+                        <h4 id="modalYear">May - Sept 2022</h4>
+                    </div>
+
+                    <div class="info-box">
+                        <span>Role</span>
+                        <h4 id="modalRole">Designer</h4>
+                    </div>
+
+                    <div class="info-box">
+                        <span>Tools</span>
+                        <h4 id="modalTools">Figma, Canva, Adobe Illustrator</h4>
+                    </div>
+
+                    <div class="info-box">
+                        <span>Status</span>
+                        <h4 id="modalStatus">Work From Home</h4>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const modal = document.getElementById("projectModal")
+        const closeModal = document.getElementById("closeModal")
+
+        const modalImage = document.getElementById("modalImage")
+        const modalTitle = document.getElementById("modalTitle")
+        const modalDesc = document.getElementById("modalDesc")
+        const modalTag = document.getElementById("modalTag")
+
+        const cards = document.querySelectorAll(".card")
+
+        cards.forEach(card => {
+
+            card.addEventListener("click", () => {
+
+                const img = card.querySelector("img").src
+                const title = card.querySelector("h3").innerText
+                const desc = card.querySelector("p").innerText
+                const tag = card.querySelector(".tag").innerText
+
+                modalImage.src = img
+                modalTitle.innerText = title
+                modalDesc.innerText = desc
+                modalTag.innerText = tag
+
+                modal.classList.add("active")
+
+            })
+
+        })
+
+        closeModal.addEventListener("click", () => {
+            modal.classList.remove("active")
+        })
+
+        modal.addEventListener("click", (e) => {
+
+            if (e.target === modal) {
+                modal.classList.remove("active")
+            }
+
+        })
+
+    </script>
+
+</body>
+
+</html>
