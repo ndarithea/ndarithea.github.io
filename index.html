@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Portfolio</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
@@ -15,36 +17,50 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+
             font-family: 'Poppins', sans-serif;
         }
 
         body {
             background: #0b0b0f;
             color: white;
+
             overflow-x: hidden;
         }
 
         body::before {
             content: "";
+
             position: fixed;
+
             width: 500px;
             height: 500px;
+
             background: rgba(255, 60, 120, 0.22);
+
             filter: blur(150px);
+
             top: -100px;
             left: -100px;
+
             z-index: -1;
         }
 
         body::after {
             content: "";
+
             position: fixed;
+
             width: 450px;
             height: 450px;
+
             background: rgba(255, 40, 40, 0.16);
+
             filter: blur(140px);
+
             bottom: -120px;
             right: -100px;
+
             z-index: -1;
         }
 
@@ -82,7 +98,7 @@
             position: relative;
         }
 
-        .left img {
+        .left img.main-photo {
             width: 100%;
             max-width: 650px;
 
@@ -95,11 +111,56 @@
             transition: 0.4s;
         }
 
-        .left img:hover {
+        .left img.main-photo:hover {
             transform: scale(1.03);
         }
 
-        /* FLOATING */
+        /* CHIBI */
+
+        .avatar-illustration {
+            position: absolute;
+
+            top: 22px;
+            left: 22px;
+
+            width: 78px;
+            height: 78px;
+
+            border-radius: 50%;
+
+            padding: 6px;
+
+            background: rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(12px);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            box-shadow:
+                0 10px 24px rgba(0, 0, 0, 0.30),
+                0 0 18px rgba(255, 60, 120, 0.18);
+
+            z-index: 4;
+
+            transition: 0.35s;
+
+            cursor: pointer;
+        }
+
+        .avatar-illustration:hover {
+            transform: scale(1.08);
+        }
+
+        .avatar-illustration img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+        }
+
+        /* FLOATING CARD */
 
         .floating-card {
             position: absolute;
@@ -108,6 +169,7 @@
             right: 0;
 
             background: rgba(255, 255, 255, 0.06);
+
             border: 1px solid rgba(255, 255, 255, 0.08);
 
             backdrop-filter: blur(14px);
@@ -242,6 +304,7 @@
         .tool img {
             width: 36px;
             height: 36px;
+
             object-fit: contain;
         }
 
@@ -403,6 +466,7 @@
         .social-icon img {
             width: 22px;
             height: 22px;
+
             object-fit: contain;
 
             border-radius: 10px;
@@ -444,6 +508,54 @@
                     #ffb347);
         }
 
+        /* CHIBI MODAL */
+
+        .chibi-modal {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.72);
+
+            backdrop-filter: blur(10px);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            z-index: 999;
+
+            opacity: 0;
+            visibility: hidden;
+
+            transition: 0.35s;
+        }
+
+        .chibi-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chibi-modal-content {
+            transform: scale(0.7);
+
+            transition: 0.35s;
+        }
+
+        .chibi-modal.active .chibi-modal-content {
+            transform: scale(1);
+        }
+
+        .chibi-modal img {
+            width: 320px;
+            max-width: 85vw;
+
+            border-radius: 32px;
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.45),
+                0 0 60px rgba(255, 60, 120, 0.25);
+        }
+
         /* TABLET */
 
         @media(max-width:950px) {
@@ -478,8 +590,6 @@
 
         /* MOBILE */
 
-        /* MOBILE */
-
         @media(max-width:600px) {
 
             .container {
@@ -494,19 +604,32 @@
                 gap: 22px;
             }
 
-            .left img {
+            .left img.main-photo {
                 border-radius: 28px;
             }
 
-            /* FLOAT CARD JADI NORMAL */
+            /* CHIBI */
+
+            .avatar-illustration {
+                width: 68px;
+                height: 68px;
+
+                top: 16px;
+                left: 16px;
+
+                padding: 5px;
+            }
+
+            /* FLOAT CARD */
+
             .floating-card {
                 position: relative;
 
                 bottom: auto;
                 right: auto;
-                transform: none;
 
                 width: 90%;
+
                 margin-top: -60px;
 
                 padding: 16px 20px;
@@ -523,8 +646,9 @@
             }
 
             /* TOOLS */
+
             .left-tools {
-                margin-top: 4px;
+                margin-top: 40px;
 
                 justify-content: center;
                 gap: 14px;
@@ -543,6 +667,7 @@
             }
 
             /* RIGHT */
+
             .right {
                 margin-top: 10px;
             }
@@ -550,6 +675,7 @@
             .right h1 {
                 font-size: 42px;
                 line-height: 1.05;
+
                 margin-bottom: 18px;
             }
 
@@ -561,6 +687,7 @@
             }
 
             /* BUTTON */
+
             .buttons {
                 max-width: 100%;
                 gap: 14px;
@@ -577,6 +704,7 @@
             }
 
             /* SOCIAL */
+
             .socials {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
@@ -596,11 +724,6 @@
 
                 padding: 14px 10px;
             }
-            
-            /* TAMBAH JARAK TOOLS */
-            .left-tools {
-                margin-top: 40px;
-            }
 
         }
     </style>
@@ -612,20 +735,34 @@
 
         <div class="hero">
 
+            <!-- LEFT -->
+
             <div class="left">
 
-                <img src="img/me.png" alt="">
+                <!-- CHIBI -->
+
+                <div class="avatar-illustration" id="openChibi">
+                    <img src="img/chibi.png" alt="Chibi Illustration">
+                </div>
+
+                <!-- MAIN PHOTO -->
+
+                <img src="img/me.png" alt="" class="main-photo">
+
+                <!-- FLOATING -->
 
                 <div class="floating-card">
                     <h3>Design & Code</h3>
                     <p>2+ Years</p>
                 </div>
 
-                <!-- PINDAH TOOLS KE KIRI -->
+                <!-- TOOLS -->
+
                 <div class="tools left-tools">
 
                     <div class="tool">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"
+                            alt="">
                     </div>
 
                     <div class="tool">
@@ -650,6 +787,8 @@
 
             </div>
 
+            <!-- RIGHT -->
+
             <div class="right">
 
                 <h1>
@@ -662,7 +801,7 @@
                     immersive, and modern digital experiences.
                 </p>
 
-
+                <!-- BUTTONS -->
 
                 <div class="buttons">
 
@@ -688,6 +827,7 @@
                 <div class="socials">
 
                     <!-- DISCORD -->
+
                     <a href="https://discord.com/users/527219727756558337" class="social-card">
 
                         <div class="social-icon">
@@ -696,32 +836,28 @@
 
                         <div class="social-right">
                             <h3>_ndar</h3>
-
-                            <p>
-                                Chat on Discord
-                            </p>
+                            <p>Chat on Discord</p>
                         </div>
 
                     </a>
 
                     <!-- INSTAGRAM -->
+
                     <a href="https://instagram.com/dindaatujuh" class="social-card instagram">
 
                         <div class="social-icon">
-                            <img src="img/instagram.png" alt="Instagram">
+                            <img src="img/instagram.png" alt="">
                         </div>
 
                         <div class="social-right">
                             <h3>@dindaatujuh</h3>
-
-                            <p>
-                                Instagram Profile
-                            </p>
+                            <p>Instagram Profile</p>
                         </div>
 
                     </a>
 
                     <!-- TIKTOK -->
+
                     <a href="https://tiktok.com/@theanekaw" class="social-card tiktok">
 
                         <div class="social-icon">
@@ -730,15 +866,13 @@
 
                         <div class="social-right">
                             <h3>@theanekaw</h3>
-
-                            <p>
-                                TikTok Profile
-                            </p>
+                            <p>TikTok Profile</p>
                         </div>
 
                     </a>
 
                     <!-- SAWERIA -->
+
                     <a href="https://saweria.co/dindari" class="social-card saweria">
 
                         <div class="social-icon">
@@ -747,22 +881,59 @@
 
                         <div class="social-right">
                             <h3>dindari</h3>
-
-                            <p>
-                                Support Me on Saweria
-                            </p>
+                            <p>Support Me on Saweria</p>
                         </div>
 
                     </a>
 
                 </div>
 
-
             </div>
 
         </div>
 
     </div>
+
+    <!-- CHIBI MODAL -->
+
+    <div class="chibi-modal" id="chibiModal">
+
+        <div class="chibi-modal-content">
+            <img src="img/chibi.png" alt="Chibi Full">
+        </div>
+
+    </div>
+
+    <script>
+
+        const openChibi = document.getElementById("openChibi");
+        const chibiModal = document.getElementById("chibiModal");
+
+        openChibi.addEventListener("click", () => {
+            chibiModal.classList.add("active");
+        });
+
+        /* CLOSE OUTSIDE */
+
+        chibiModal.addEventListener("click", (e) => {
+
+            if (e.target === chibiModal) {
+                chibiModal.classList.remove("active");
+            }
+
+        });
+
+        /* ESC CLOSE */
+
+        document.addEventListener("keydown", (e) => {
+
+            if (e.key === "Escape") {
+                chibiModal.classList.remove("active");
+            }
+
+        });
+
+    </script>
 
 </body>
 
