@@ -57,16 +57,18 @@
         /* TOPBAR */
 
         .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: start;
+
+            gap: 40px;
+
             margin-bottom: 55px;
         }
 
         .title {
-            max-width: 700px;
+            width: 100%;
+            max-width: 1000px;
         }
 
         .mini-tag {
@@ -100,7 +102,7 @@
         }
 
         .title h1 {
-            font-size: 68px;
+            font-size: clamp(44px, 7vw, 68px);
             line-height: 1;
             margin-bottom: 18px;
             font-weight: 700;
@@ -160,53 +162,99 @@
                 0 0 30px rgba(255, 70, 130, 0.22);
         }
 
-        /* STATS */
+        /* EXPERIENCE */
 
-        .stats {
-            display: flex;
-            gap: 18px;
-            flex-wrap: wrap;
-            margin-top: 34px;
+        .experience-section {
+            margin-top: 38px;
+            width: 100%;
+            max-width: 1100px;
         }
 
-        .stat-box {
-            flex: 1 1 160px;
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
 
-            padding: 22px;
+        .experience-card {
+            position: relative;
 
-            border-radius: 24px;
+            padding: 24px;
 
-            background: rgba(255, 255, 255, 0.05);
+            border-radius: 26px;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.06),
+                    rgba(255, 255, 255, 0.03));
 
             border: 1px solid rgba(255, 255, 255, 0.08);
 
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(18px);
+
+            overflow: hidden;
 
             transition: 0.35s;
         }
 
-        .stat-box:hover {
-            transform: translateY(-5px);
+        .experience-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
 
-            box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.35),
-                0 0 24px rgba(255, 70, 130, 0.18);
+            margin-bottom: 18px;
+
+            flex-wrap: wrap;
         }
 
-        .stat-box h2 {
-            font-size: 34px;
-            margin-bottom: 6px;
+        .exp-date {
+            color: #ff8fab;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
-        .stat-box p {
-            color: #a1a1aa;
+        .exp-role {
+            padding: 7px 14px;
+
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.07);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            color: #f3f3f3;
+
+            font-size: 11px;
+            font-weight: 500;
+
+            white-space: nowrap;
+        }
+
+        .experience-card h3 {
+            font-size: 28px;
+            line-height: 1.1;
+
+            margin-bottom: 14px;
+
+            font-weight: 700;
+        }
+
+        .experience-card p {
+            color: #a8a8b3;
+
+            line-height: 1.75;
             font-size: 14px;
+
+            max-width: 90%;
         }
 
         /* GALLERY */
+
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
         }
 
@@ -244,7 +292,7 @@
         }
 
         .card:hover img {
-            transform: scale(1.06);
+            transform: scale(1.04);
         }
 
         /* OVERLAY */
@@ -317,7 +365,7 @@
             justify-content: center;
             align-items: center;
 
-            padding: 30px;
+            padding: 24px;
 
             opacity: 0;
             pointer-events: none;
@@ -334,7 +382,8 @@
 
         .modal-box {
             width: 100%;
-            max-width: 1150px;
+            max-width: 1450px;
+            height: 88vh;
 
             background: rgba(255, 255, 255, 0.05);
 
@@ -347,7 +396,7 @@
             overflow: hidden;
 
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
+            grid-template-columns: 1.5fr 0.7fr;
 
             position: relative;
 
@@ -356,11 +405,32 @@
                 0 0 40px rgba(255, 70, 130, 0.15);
         }
 
-        .modal-left img {
+        .modal-left {
+            background: #0d0d12;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider {
+            position: relative;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+        }
+
+        .modal-left img,
+        .slider img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
             display: block;
+
+            padding: 24px;
+
+            background: #0f0f14;
         }
 
         .modal-right {
@@ -369,6 +439,8 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+
+            overflow-y: auto;
         }
 
         .modal-tag {
@@ -457,7 +529,64 @@
             background: rgba(255, 255, 255, 0.14);
         }
 
-        /* FOOTER */
+        .slide-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+
+            width: 46px;
+            height: 46px;
+
+            border-radius: 50%;
+            border: none;
+
+            background: rgba(0, 0, 0, 0.45);
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 26px;
+
+            backdrop-filter: blur(10px);
+
+            transition: .3s;
+        }
+
+        .slide-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .prev {
+            left: 16px;
+        }
+
+        .next {
+            right: 16px;
+        }
+
+        .theme-pink {
+            border: 1px solid rgba(255, 70, 130, 0.35);
+            box-shadow:
+                0 0 50px rgba(255, 70, 130, 0.18);
+        }
+
+        .theme-orange {
+            border: 1px solid rgba(255, 140, 60, 0.35);
+            box-shadow:
+                0 0 50px rgba(255, 140, 60, 0.16);
+        }
+
+        .theme-blue {
+            border: 1px solid rgba(80, 160, 255, 0.35);
+            box-shadow:
+                0 0 50px rgba(80, 160, 255, 0.18);
+        }
+
+        .theme-purple {
+            border: 1px solid rgba(170, 100, 255, 0.35);
+            box-shadow:
+                0 0 50px rgba(170, 100, 255, 0.18);
+        }
 
         .footer {
             margin-top: 70px;
@@ -498,7 +627,8 @@
             opacity: 0.7;
         }
 
-        /* MOBILE */
+        /* TABLET */
+
         @media(max-width:900px) {
 
             .container {
@@ -516,8 +646,13 @@
 
             .modal-box {
                 grid-template-columns: 1fr;
-                max-height: 90vh;
-                overflow: auto;
+                height: auto;
+                max-height: 92vh;
+                overflow-y: auto;
+            }
+
+            .modal-left {
+                height: 500px;
             }
 
             .modal-right h2 {
@@ -531,6 +666,7 @@
         }
 
         /* MOBILE */
+
         @media(max-width:600px) {
 
             .container {
@@ -538,14 +674,9 @@
             }
 
             .topbar {
+                grid-template-columns: 1fr;
                 margin-bottom: 28px;
                 gap: 18px;
-            }
-
-            .mini-tag {
-                padding: 8px 14px;
-                font-size: 12px;
-                margin-bottom: 16px;
             }
 
             .title h1 {
@@ -554,43 +685,21 @@
                 margin-bottom: 14px;
             }
 
-            .title p {
-                font-size: 15px;
-                line-height: 1.7;
-            }
-
-            .stats {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
+            .experience-grid {
+                grid-template-columns: 1fr;
                 gap: 14px;
-                margin-top: 24px;
             }
 
-            .stat-box {
-                min-width: unset;
+            .experience-card {
                 padding: 18px;
-                border-radius: 20px;
-            }
-
-            .stat-box h2 {
-                font-size: 28px;
-            }
-
-            .stat-box p {
-                font-size: 12px;
+                border-radius: 22px;
             }
 
             .back-btn {
-                width: 100%;
-                text-align: center;
+                width: fit-content;
                 padding: 15px;
                 border-radius: 18px;
                 font-size: 14px;
-            }
-
-            .gallery {
-                columns: 1;
-                column-gap: 0;
             }
 
             .card {
@@ -601,10 +710,6 @@
             .overlay {
                 opacity: 1;
                 padding: 18px;
-                background: linear-gradient(to top,
-                        rgba(0, 0, 0, 0.88),
-                        rgba(0, 0, 0, 0.2),
-                        transparent);
             }
 
             .overlay h3 {
@@ -613,26 +718,63 @@
 
             .overlay p {
                 font-size: 13px;
-                line-height: 1.6;
             }
 
-            .tag {
-                font-size: 11px;
-                padding: 6px 12px;
-                margin-bottom: 10px;
+            .project-modal {
+                padding: 10px;
+            }
+
+            .modal-box {
+                grid-template-columns: 1fr !important;
+
+                width: 100%;
+                height: auto;
+
+                max-height: 94vh;
+
+                border-radius: 24px;
+
+                overflow-y: auto;
+            }
+
+            .modal-left {
+                width: 100%;
+                height: 280px;
+            }
+
+            .modal-left img,
+            .slider img {
+                padding: 14px;
             }
 
             .modal-right {
-                padding: 24px;
+                padding: 20px;
             }
 
             .modal-right h2 {
-                font-size: 30px;
+                font-size: 28px;
             }
 
             .modal-desc {
                 font-size: 14px;
                 line-height: 1.7;
+            }
+
+            .slide-btn {
+                width: 38px;
+                height: 38px;
+
+                font-size: 20px;
+            }
+
+            .close-modal {
+                width: 38px;
+                height: 38px;
+
+                font-size: 15px;
+
+                top: 12px;
+                right: 12px;
             }
 
             .footer {
@@ -646,11 +788,6 @@
 
                 margin-top: 45px;
                 padding-top: 22px;
-            }
-
-            .footer-left {
-                justify-content: center;
-                flex-wrap: wrap;
             }
 
             .footer-right {
@@ -671,7 +808,7 @@
 
                 <div class="mini-tag">
                     <div class="dot"></div>
-                    Selected Works
+                    Selected Project
                 </div>
 
                 <h1>
@@ -679,24 +816,63 @@
                 </h1>
 
                 <p>
-                    Collection of immersive systems, cinematic visuals,
-                    aesthetic interfaces, and modern gameplay experiences.
+                    <!-- Collection of immersive systems, cinematic visuals,
+                    aesthetic interfaces, and modern gameplay experiences. -->
                 </p>
 
-                <div class="stats">
+                <div class="experience-section">
 
-                    <div class="stat-box">
-                        <h2>5+</h2>
-                        <p>Projects Created</p>
-                    </div>
+                    <div class="experience-grid">
 
-                    <div class="stat-box">
-                        <h2>2+</h2>
-                        <p>Years Experience</p>
+                        <div class="experience-card">
+
+                            <div class="experience-card-top">
+
+                                <span class="exp-date">
+                                    May 2022 — Sept 2022
+                                </span>
+
+                                <div class="exp-role">
+                                    Freelance
+                                </div>
+
+                            </div>
+
+                            <h3>Caplin Pakes</h3>
+
+                            <p>
+                                Designed promotional posters and visual assets
+                                for in-game diamond trading with modern gaming aesthetics.
+                            </p>
+
+                        </div>
+
+                        <div class="experience-card active-card">
+
+                            <div class="experience-card-top">
+
+                                <span class="exp-date">
+                                    Feb 2026 — Present
+                                </span>
+
+                                <div class="exp-role">
+                                    Freelance
+                                </div>
+
+                            </div>
+
+                            <h3>24zM Community</h3>
+
+                            <p>
+                                Creating social media visuals and branding content
+                                for a Roblox racing community.
+                            </p>
+
+                        </div>
+
                     </div>
 
                 </div>
-
             </div>
 
             <a href="index.html" class="back-btn">
@@ -721,7 +897,7 @@
 
                         <p>
                             Designed aesthetic promotional visuals for in-game diamond trading using Canva, Figma,
-                            and Illustrator, tailored for gaming audiences and modern market trends.
+                            and Adobe Illustrator.
                         </p>
 
                     </div>
@@ -794,7 +970,7 @@
                         <h3>Campus Free Fire Community</h3>
 
                         <p>
-                            -
+                            Campus Free Fire Community Indonesia
                         </p>
 
                     </div>
@@ -813,7 +989,7 @@
                         <h3>Team - Free Fire</h3>
 
                         <p>
-                            -
+                            Online Team Competitive Free Fire
                         </p>
 
                     </div>
@@ -943,15 +1119,33 @@
 
     <div class="project-modal" id="projectModal">
 
-        <div class="modal-box">
+        <div class="modal-box" id="modalBox">
 
             <button class="close-modal" id="closeModal">
                 ✕
             </button>
 
+            <!-- LEFT -->
+
             <div class="modal-left">
-                <img src="" id="modalImage">
+
+                <div class="slider">
+
+                    <img src="" id="modalImage">
+
+                    <button class="slide-btn prev" id="prevSlide">
+                        ‹
+                    </button>
+
+                    <button class="slide-btn next" id="nextSlide">
+                        ›
+                    </button>
+
+                </div>
+
             </div>
+
+            <!-- RIGHT -->
 
             <div class="modal-right">
 
@@ -971,7 +1165,7 @@
 
                     <div class="info-box">
                         <span>Year</span>
-                        <h4 id="modalYear">2022 - Now</h4>
+                        <h4 id="modalYear">2022</h4>
                     </div>
 
                     <div class="info-box">
@@ -981,12 +1175,12 @@
 
                     <div class="info-box">
                         <span>Tools</span>
-                        <h4 id="modalTools">Figma, Canva, Adobe Illustrator</h4>
+                        <h4 id="modalTools">Figma</h4>
                     </div>
 
                     <div class="info-box">
                         <span>Status</span>
-                        <h4 id="modalStatus">Work From Home</h4>
+                        <h4 id="modalStatus">Active</h4>
                     </div>
 
                 </div>
@@ -1007,21 +1201,182 @@
         const modalDesc = document.getElementById("modalDesc")
         const modalTag = document.getElementById("modalTag")
 
+        const modalYear = document.getElementById("modalYear")
+        const modalRole = document.getElementById("modalRole")
+        const modalTools = document.getElementById("modalTools")
+        const modalStatus = document.getElementById("modalStatus")
+
+        const modalBox = document.getElementById("modalBox")
+
+        const prevSlide = document.getElementById("prevSlide")
+        const nextSlide = document.getElementById("nextSlide")
+
         const cards = document.querySelectorAll(".card")
 
-        cards.forEach(card => {
+        let currentSlide = 0
+        let currentImages = []
+
+        // DATA PROJECT
+
+        const projects = [
+
+            {
+                title: "Caplin Pakes",
+                tag: "Socmed Design",
+                desc: "Gaming diamond trading promotional visuals with modern aesthetic layouts and bold typography.",
+                year: "2022",
+                role: "Socmed Designer",
+                tools: "Canva, Figma, Adobe Illustrator",
+                status: "Completed",
+                theme: "theme-pink",
+
+                images: [
+                    "img/sd.png",
+                ]
+            },
+
+            {
+                title: "Nemesis Team",
+                tag: "Socmed Design",
+                desc: "Competitive Free Fire team branding",
+                year: "2023",
+                role: "Socmed Designer",
+                tools: "Canva, Figma",
+                status: "Online Team",
+                theme: "theme-orange",
+
+                images: [
+                    "img/sd1.png",
+                ]
+            },
+
+            {
+                title: "XGanteng Team",
+                tag: "Socmed Design",
+                desc: "Competitive Free Fire team branding",
+                year: "2023",
+                role: "Socmed Designer",
+                tools: "Canva, Figma",
+                status: "Finished",
+                theme: "theme-blue",
+
+                images: [
+                    "img/sd2.png",
+                ]
+            },
+
+            {
+                title: "FoRTi Studyclub",
+                tag: "Socmed Design",
+                desc: "Modern studyclub visual identity with clean educational layouts.",
+                year: "2025",
+                role: "Socmed Designer",
+                tools: "Canva, Figma",
+                status: "Active",
+                theme: "theme-purple",
+
+                images: [
+                    "img/sd3.png",
+                ]
+            },
+
+            {
+                title: "Campus Free Fire Community",
+                tag: "Socmed Design",
+                desc: "Social media branding and event poster design for campus gaming communities.",
+                year: "2026",
+                role: "Part Time",
+                tools: "Photoshop, Canva",
+                status: "Ongoing",
+                theme: "theme-pink",
+
+                images: [
+                    "img/sd4.png",
+                ]
+            },
+
+            {
+                title: "Team - Free Fire",
+                tag: "Banner Design",
+                desc: "Wide cinematic gaming banner optimized for team showcase and promotion.",
+                year: "2026",
+                role: "Design",
+                tools: "Canva, Figma",
+                status: "Completed",
+                theme: "theme-orange",
+
+                images: [
+                    "img/sd5.png",
+                ]
+            },
+
+            {
+                title: "24zM Community",
+                tag: "Roblox Community",
+                desc: "Modern racing community branding for Roblox with cinematic social media content.",
+                year: "2026",
+                role: "Socmed Designer",
+                tools: "Canva, Figma",
+                status: "Active",
+                theme: "theme-blue",
+
+                images: [
+                    "img/sd7.png",
+                ]
+            }
+
+        ]
+
+        function updateSlide() {
+            modalImage.src = currentImages[currentSlide]
+        }
+
+        nextSlide.addEventListener("click", () => {
+
+            currentSlide++
+
+            if (currentSlide >= currentImages.length) {
+                currentSlide = 0
+            }
+
+            updateSlide()
+
+        })
+
+        prevSlide.addEventListener("click", () => {
+
+            currentSlide--
+
+            if (currentSlide < 0) {
+                currentSlide = currentImages.length - 1
+            }
+
+            updateSlide()
+
+        })
+
+        cards.forEach((card, index) => {
 
             card.addEventListener("click", () => {
 
-                const img = card.querySelector("img").src
-                const title = card.querySelector("h3").innerText
-                const desc = card.querySelector("p").innerText
-                const tag = card.querySelector(".tag").innerText
+                const project = projects[index]
 
-                modalImage.src = img
-                modalTitle.innerText = title
-                modalDesc.innerText = desc
-                modalTag.innerText = tag
+                currentImages = project.images
+                currentSlide = 0
+
+                updateSlide()
+
+                modalTitle.innerText = project.title
+                modalDesc.innerText = project.desc
+                modalTag.innerText = project.tag
+
+                modalYear.innerText = project.year
+                modalRole.innerText = project.role
+                modalTools.innerText = project.tools
+                modalStatus.innerText = project.status
+
+                modalBox.className = "modal-box"
+                modalBox.classList.add(project.theme)
 
                 modal.classList.add("active")
 
