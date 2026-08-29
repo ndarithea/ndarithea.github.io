@@ -500,6 +500,101 @@
             height: 100%;
         }
 
+        /* FULLSCREEN IMAGE VIEWER */
+        .image-viewer {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 35px;
+            background: rgba(0, 0, 0, .94);
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .3s ease,
+                visibility .3s ease;
+        }
+
+        .image-viewer.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .image-viewer img {
+            max-width: 95vw;
+            max-height: 92vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            cursor: zoom-in;
+            transform: scale(.92);
+            transition:
+                transform .4s cubic-bezier(.2, .8, .2, 1),
+                opacity .3s ease;
+            box-shadow:
+                0 30px 100px rgba(0, 0, 0, .7);
+        }
+
+        .image-viewer.active img {
+            transform: scale(1);
+        }
+
+        .image-viewer img.zoomed {
+            max-width: none;
+            max-height: none;
+            width: auto;
+            height: auto;
+            transform: scale(1.5);
+            cursor: zoom-out;
+        }
+
+        /* CLOSE FULLSCREEN */
+        .image-viewer-close {
+            position: absolute;
+            top: 22px;
+            right: 25px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .15);
+            background: rgba(255, 255, 255, .08);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(12px);
+            transition: .3s ease;
+            z-index: 5;
+        }
+
+        .image-viewer-close:hover {
+            background: rgba(255, 255, 255, .15);
+            transform: rotate(90deg);
+        }
+
+        /* HINT */
+        .image-viewer-hint {
+            position: absolute;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .1);
+            color: rgba(255, 255, 255, .55);
+            font-size: 11px;
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+        }
+
         .modal-left img,
         .slider img {
             width: 100%;
@@ -661,6 +756,103 @@
             box-shadow:
                 0 30px 80px rgba(0, 0, 0, .65),
                 0 0 50px rgba(170, 100, 255, .16);
+        }
+
+        /* PLAY ON ROBLOX */
+        .play-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 24px;
+            padding: 15px 20px;
+            border-radius: 15px;
+            background: linear-gradient(135deg,
+                    #ff416c,
+                    #ff2d92);
+
+            border: 1px solid rgba(255, 255, 255, .18);
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .4px;
+            box-shadow:
+                0 10px 30px rgba(255, 45, 120, .22),
+                inset 0 1px 0 rgba(255, 255, 255, .2);
+            overflow: hidden;
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease,
+                filter .3s ease;
+        }
+
+        /* ROBLOX ICON */
+        .play-btn::before {
+            content: "";
+            width: 17px;
+            height: 17px;
+            background: white;
+            /* bentuk Roblox-style tilted square */
+            clip-path: polygon(15% 0%,
+                    100% 15%,
+                    85% 100%,
+                    0% 85%);
+            transform: rotate(-8deg);
+            transition: transform .3s ease;
+        }
+
+        /* SHINE */
+        .play-btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 80%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, .25),
+                    transparent);
+            transform: skewX(-20deg);
+            transition: left .6s ease;
+        }
+
+        .play-btn:hover {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 16px 38px rgba(255, 45, 120, .35),
+                0 0 25px rgba(255, 60, 140, .15);
+
+            filter: brightness(1.08);
+        }
+
+        .play-btn:hover::before {
+            transform: rotate(-8deg) scale(1.12);
+        }
+
+        .play-btn:hover::after {
+            left: 140%;
+        }
+
+        .play-btn:active {
+            transform: translateY(-1px) scale(.98);
+        }
+
+        /* DISABLED */
+        .play-btn.disabled {
+            background: rgba(255, 255, 255, .06);
+            border-color: rgba(255, 255, 255, .08);
+            color: rgba(255, 255, 255, .35);
+            box-shadow: none;
+            pointer-events: none;
+        }
+
+        .play-btn.disabled::before {
+            opacity: .3;
         }
 
         /* FOOTER */
@@ -1184,11 +1376,21 @@
                         </h4>
                     </div>
                 </div>
-                <!-- PLAY -->
                 <a href="#" target="_blank" class="play-btn" id="playBtn">
-                    Play On Roblox
+                    <span>Play On Roblox</span>
                 </a>
             </div>
+        </div>
+    </div>
+
+    <!-- FULLSCREEN IMAGE VIEWER -->
+    <div class="image-viewer" id="imageViewer">
+        <button class="image-viewer-close" id="imageViewerClose">
+            ✕
+        </button>
+        <img id="fullscreenImage" src="" alt="Fullscreen Preview">
+        <div class="image-viewer-hint">
+            Click image to zoom
         </div>
     </div>
 
@@ -1198,6 +1400,9 @@
         const modal = document.getElementById("projectModal");
         const closeModal = document.getElementById("closeModal");
         const modalImage = document.getElementById("modalImage");
+        const imageViewer = document.getElementById("imageViewer");
+        const fullscreenImage = document.getElementById("fullscreenImage");
+        const imageViewerClose = document.getElementById("imageViewerClose");
         const modalTitle = document.getElementById("modalTitle");
         const modalDesc = document.getElementById("modalDesc");
         const modalTag = document.getElementById("modalTag");
@@ -1209,6 +1414,7 @@
         const prevSlide = document.getElementById("prevSlide");
         const nextSlide = document.getElementById("nextSlide");
         const cards = document.querySelectorAll(".card");
+        const playBtn = document.getElementById("playBtn");
 
         //    SLIDER STATE
         let currentSlide = 0;
@@ -1268,6 +1474,7 @@
                 ]
             }
         ];
+
         //    UPDATE SLIDE
         function updateSlide() {
             if (!currentImages.length) {
@@ -1276,6 +1483,49 @@
             modalImage.src =
                 currentImages[currentSlide];
         }
+
+        // FULLSCREEN IMAGE VIEWER
+        modalImage.addEventListener("click", () => {
+            // Ambil gambar yang sedang tampil di slider
+            fullscreenImage.src = modalImage.src;
+            // Reset zoom
+            fullscreenImage.classList.remove("zoomed");
+            // Buka fullscreen
+            imageViewer.classList.add("active");
+            // Tetap lock scroll halaman
+            document.body.style.overflow = "hidden";
+        });
+
+        // KLIK GAMBAR FULLSCREEN = ZOOM
+        fullscreenImage.addEventListener("click", (event) => {
+            event.stopPropagation();
+            fullscreenImage.classList.toggle("zoomed");
+        });
+
+        // TOMBOL CLOSE
+        imageViewerClose.addEventListener("click", () => {
+            imageViewer.classList.remove("active");
+            fullscreenImage.classList.remove("zoomed");
+        });
+
+        // KLIK AREA HITAM = CLOSE
+        imageViewer.addEventListener("click", (event) => {
+            if (event.target === imageViewer) {
+                imageViewer.classList.remove("active");
+                fullscreenImage.classList.remove("zoomed");
+            }
+        });
+
+        // ESC
+        document.addEventListener("keydown", (event) => {
+            if (
+                event.key === "Escape" &&
+                imageViewer.classList.contains("active")
+            ) {
+                imageViewer.classList.remove("active");
+                fullscreenImage.classList.remove("zoomed");
+            }
+        });
 
         //    NEXT SLIDE
         nextSlide.addEventListener(
@@ -1324,6 +1574,16 @@
                         modalRole.innerText = project.role;
                         modalTools.innerText = project.tools;
                         modalStatus.innerText = project.status;
+                        // PLAY ON ROBLOX
+                        if (project.link && project.link !== "#") {
+                            playBtn.href = project.link;
+                            playBtn.classList.remove("disabled");
+                            playBtn.innerHTML = `<span>Play On Roblox</span>`;
+                        } else {
+                            playBtn.href = "#";
+                            playBtn.classList.add("disabled");
+                            playBtn.innerHTML = `<span>Not Available</span>`;
+                        }
                         modalBox.className = "modal-box";
                         modalBox.classList.add(project.theme
                         );

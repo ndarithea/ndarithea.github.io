@@ -516,6 +516,101 @@
             height: 100%;
         }
 
+        /* FULLSCREEN IMAGE VIEWER */
+        .image-viewer {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 35px;
+            background: rgba(0, 0, 0, .94);
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity .3s ease,
+                visibility .3s ease;
+        }
+
+        .image-viewer.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .image-viewer img {
+            max-width: 95vw;
+            max-height: 92vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            cursor: zoom-in;
+            transform: scale(.92);
+            transition:
+                transform .4s cubic-bezier(.2, .8, .2, 1),
+                opacity .3s ease;
+            box-shadow:
+                0 30px 100px rgba(0, 0, 0, .7);
+        }
+
+        .image-viewer.active img {
+            transform: scale(1);
+        }
+
+        .image-viewer img.zoomed {
+            max-width: none;
+            max-height: none;
+            width: auto;
+            height: auto;
+            transform: scale(1.5);
+            cursor: zoom-out;
+        }
+
+        /* CLOSE FULLSCREEN */
+        .image-viewer-close {
+            position: absolute;
+            top: 22px;
+            right: 25px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .15);
+            background: rgba(255, 255, 255, .08);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(12px);
+            transition: .3s ease;
+            z-index: 5;
+        }
+
+        .image-viewer-close:hover {
+            background: rgba(255, 255, 255, .15);
+            transform: rotate(90deg);
+        }
+
+        /* HINT */
+        .image-viewer-hint {
+            position: absolute;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .1);
+            color: rgba(255, 255, 255, .55);
+            font-size: 11px;
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+        }
+
         .modal-left img,
         .slider img {
             width: 100%;
@@ -1072,7 +1167,7 @@
             </div>
             <!-- 01 -->
             <div class="card">
-                <img src="img/sd7.png" alt="24zM Community">
+                <img src="img/sd9.png" alt="24zM Community">
                 <div class="overlay">
                     <div class="overlay-content">
                         <div class="tag">
@@ -1080,6 +1175,40 @@
                         </div>
                         <h3>
                             24zM Community
+                        </h3>
+                        <p>
+                            Racing community branding
+                            for Roblox.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="img/sd8.png" alt="24zM Community">
+                <div class="overlay">
+                    <div class="overlay-content">
+                        <div class="tag">
+                            2026
+                        </div>
+                        <h3>
+                            24zM Community League Season 1
+                        </h3>
+                        <p>
+                            Racing community branding
+                            for Roblox.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="img/sd7.png" alt="24zM Community">
+                <div class="overlay">
+                    <div class="overlay-content">
+                        <div class="tag">
+                            2026
+                        </div>
+                        <h3>
+                            24zM Internal League Season 1
                         </h3>
                         <p>
                             Racing community branding
@@ -1160,7 +1289,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 07 -->
             <div class="card">
                 <img src="img/sd5.png" alt="Free Fire Team">
@@ -1261,11 +1390,25 @@
         </div>
     </div>
 
+    <!-- FULLSCREEN IMAGE VIEWER -->
+    <div class="image-viewer" id="imageViewer">
+        <button class="image-viewer-close" id="imageViewerClose">
+            ✕
+        </button>
+        <img id="fullscreenImage" src="" alt="Fullscreen Preview">
+        <div class="image-viewer-hint">
+            Click image to zoom
+        </div>
+    </div>
+
     <!-- JAVASCRIPT -->
     <script>
         const modal = document.getElementById("projectModal");
         const closeModal = document.getElementById("closeModal");
         const modalImage = document.getElementById("modalImage");
+        const imageViewer = document.getElementById("imageViewer");
+        const fullscreenImage = document.getElementById("fullscreenImage");
+        const imageViewerClose = document.getElementById("imageViewerClose");
         const modalTitle = document.getElementById("modalTitle");
         const modalDesc = document.getElementById("modalDesc");
         const modalTag = document.getElementById("modalTag");
@@ -1313,7 +1456,29 @@
                 tools: "Canva, Figma",
                 status: "Active",
                 theme: "theme-blue",
-                images: ["img/sd7.png"]
+                images: ["img/sd9.png"]
+            },
+            {
+                title: "24zM Community League Season 1",
+                tag: "Roblox Community",
+                desc: "Modern racing community branding for Roblox with cinematic social media content.",
+                year: "2026",
+                role: "Socmed Designer",
+                tools: "Canva, Figma",
+                status: "Active",
+                theme: "theme-blue",
+                images: ["img/sd8.png"]
+            },
+            {
+                title: "24zM Internal League Season 1",
+                tag: "Roblox Community",
+                desc: "Modern racing community branding for Roblox with cinematic social media content.",
+                year: "2026",
+                role: "Socmed Designer",
+                tools: "Canva, Figma",
+                status: "Active",
+                theme: "theme-blue",
+                images: ["img/sd7.png","img/sd7_1.png"]
             },
             {
                 title: "FoRTi Studyclub",
@@ -1346,7 +1511,7 @@
                 tools: "Canva, Figma, Adobe Illustrator",
                 status: "Completed",
                 theme: "theme-pink",
-                images: ["img/sd.png","img/sd_1.png","img/sd_2.png"]
+                images: ["img/sd.png", "img/sd_1.png", "img/sd_2.png"]
             },
             {
                 title: "Free Fire Team",
@@ -1377,6 +1542,53 @@
             modalImage.src =
                 currentImages[currentSlide];
         }
+
+        // FULLSCREEN IMAGE VIEWER
+        modalImage.addEventListener("click", () => {
+            // Ambil gambar yang sedang tampil di slider
+            fullscreenImage.src = modalImage.src;
+            // Reset zoom
+            fullscreenImage.classList.remove("zoomed");
+            // Buka fullscreen
+            imageViewer.classList.add("active");
+            // Tetap lock scroll halaman
+            document.body.style.overflow = "hidden";
+        });
+
+
+        // KLIK GAMBAR FULLSCREEN = ZOOM
+        fullscreenImage.addEventListener("click", (event) => {
+            event.stopPropagation();
+            fullscreenImage.classList.toggle("zoomed");
+        });
+
+
+        // TOMBOL CLOSE
+        imageViewerClose.addEventListener("click", () => {
+            imageViewer.classList.remove("active");
+            fullscreenImage.classList.remove("zoomed");
+        });
+
+
+        // KLIK AREA HITAM = CLOSE
+        imageViewer.addEventListener("click", (event) => {
+            if (event.target === imageViewer) {
+                imageViewer.classList.remove("active");
+                fullscreenImage.classList.remove("zoomed");
+            }
+        });
+
+
+        // ESC
+        document.addEventListener("keydown", (event) => {
+            if (
+                event.key === "Escape" &&
+                imageViewer.classList.contains("active")
+            ) {
+                imageViewer.classList.remove("active");
+                fullscreenImage.classList.remove("zoomed");
+            }
+        });
 
         nextSlide.addEventListener(
             "click",
