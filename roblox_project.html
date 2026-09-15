@@ -1217,7 +1217,7 @@
                 Selected Works
             </div>
             <div class="project-count">
-                09 PROJECTS
+                10 PROJECTS
             </div>
         </div>
         <!-- GALLERY -->
@@ -1402,6 +1402,26 @@
                 </div>
             </div>
 
+            <!-- PROJECT 10 -->
+            <div class="card">
+                <img src="img/pubgm_wow.png" alt="Karis x Tencent PUBGM WOW">
+                <div class="overlay">
+                    <div class="overlay-content">
+                        <div class="tag">
+                            Programmer - Scripter
+                        </div>
+                        <h3>
+                            Karis x Tencent PUBGM WOW
+                        </h3>
+                        <p>
+                            A horror multiplayer game featuring four survivors
+                            and one killer or ghost, combining survival gameplay,
+                            team-based mechanics, and horror elements.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <!-- FOOTER -->
         <div class="footer">
@@ -1482,7 +1502,7 @@
                     </div>
                 </div>
                 <a href="#" target="_blank" class="play-btn" id="playBtn">
-                    <span>Play On Roblox</span>
+                    <span>Play Game</span>
                 </a>
             </div>
         </div>
@@ -1592,7 +1612,7 @@
                 tools: "Roblox Studio",
                 status: "Completed",
                 theme: "theme-purple",
-                link: "#",
+                link: "https://www.roblox.com/share?code=b347c3eb9ef1234d8a62a14ba5d0e11d&type=ExperienceDetails&stamp=1789452576523",
                 images: [
                     "img/rbx5.png"
                 ]
@@ -1675,6 +1695,22 @@
                 link: "#",
                 images: [
                     "img/rbx10.png"
+                ]
+            },
+
+            // 10 — PUBGM WOW
+            {
+                title: "PUBGM WOW",
+                tag: "Programmer - Scripter",
+                desc: "A multiplayer horror experience developed for PUBG MOBILE WOW. The game features four survivors against one killer, focusing on survival, teamwork, escape mechanics, and horror-driven gameplay.",
+                year: "2026",
+                role: "Programmer - Scripter",
+                tools: "PUBGM WOW Editor",
+                status: "Coming Soon — In Development",
+                theme: "theme-pink",
+                link: "#",
+                images: [
+                    "img/pubgm_wow.png"
                 ]
             }
 
@@ -1783,7 +1819,7 @@
                         if (project.link && project.link !== "#") {
                             playBtn.href = project.link;
                             playBtn.classList.remove("disabled");
-                            playBtn.innerHTML = `<span>Play On Roblox</span>`;
+                            playBtn.innerHTML = `<span>Play Game</span>`;
                         } else {
                             playBtn.href = "#";
                             playBtn.classList.add("disabled");
